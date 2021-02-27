@@ -1,4 +1,4 @@
-from song import Song
+# from song import Song
 
 class Album:
     def __init__(self, name, *songs):
@@ -15,7 +15,7 @@ class Album:
             return f"Song is already in the album."
 
         self.songs.append(song)
-        return f"Song {song.name} has been added to the album {self.name}"
+        return f"Song {song.name} has been added to the album {self.name}."
 
     def remove_song(self, song_name: str):
         if song_name not in self.songs:
@@ -27,21 +27,21 @@ class Album:
         return f"Removed song {song_name} from album {self.name}"
 
     def publish(self):
-        if self.published:
+        if not self.published:
            self.published = True
-           return f"Album {self.name} had been published."
+           return f"Album {self.name} has been published."
         return f"Album {self.name} is already published."
 
     def details(self):
-        result = f"Album{self.name}\n"+"\n".join([f"=={el.name}" for el in self.songs])
+        result = f"Album {self.name}\n"+"".join([f"== {el.get_info()}\n" for el in self.songs])
         return result
 
-song = Song("Running in the 90s", 3.45, False)
-print(song.get_info())
-album = Album("Initial D", song)
-second_song = Song("Around the World", 2.34, False)
-print(album.add_song(second_song))
-print(album.details())
-print(album.publish())
-print(album.details())
+# song = Song("Running in the 90s", 3.45, False)
+# print(song.get_info())
+# album = Album("Initial D", song)
+# second_song = Song("Around the World", 2.34, False)
+# print(album.add_song(second_song))
+# print(album.details())
+# print(album.publish())
+# print(album.details())
 
