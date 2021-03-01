@@ -5,7 +5,7 @@ class Guild:
         self.name = name
         self.players = list()
 
-    def assign_player(self, player: Player):
+    def assign_player(self, player):
         if player.guild == self.name:
             return f"Player {player.name} is already in the guild."
         elif  not player.guild == "Unaffiliated":
@@ -21,7 +21,7 @@ class Guild:
         return f"Player {player_name} has been removed from the guild."
 
     def guild_info(self):
-        result = f"Guild: {self.name}"
+        result = f"Guild: {self.name}\n"
         result += "".join([player.player_info() for player in self.players])
         return result
 
