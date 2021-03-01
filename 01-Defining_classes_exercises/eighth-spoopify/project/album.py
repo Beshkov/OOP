@@ -18,13 +18,13 @@ class Album:
         return f"Song {song.name} has been added to the album {self.name}."
 
     def remove_song(self, song_name: str):
-        if song_name not in self.songs:
+        if song_name not in [el.name for el in self.songs]:
             return "Song is not in the album."
         if self.published:
             return "Cannot remove songs. Album is published."
 
-        self.songs.remove(song_name)
-        return f"Removed song {song_name} from album {self.name}"
+        self.songs = [el for el in self.songs if el.name != song_name]
+        return f"Removed song {song_name} from album {self.name}."
 
     def publish(self):
         if not self.published:
