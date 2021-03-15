@@ -3,6 +3,7 @@ class Account:
         self.owner = owner
         self.amount = amount
         self._transactions = []
+        self.index = 0
 
     def add_transaction(self, amount):
         if not isinstance(amount, int):
@@ -13,7 +14,8 @@ class Account:
     def balance(self):
         return self.amount + sum(self._transactions)
 
-    def validate_transaction(self, account, amount_to_add):
+    @staticmethod
+    def validate_transaction(account, amount_to_add):
         if account.amount + amount_to_add < 0:
             raise ValueError("sorry cannot go in debt!")
         account.add_transaction(amount_to_add)
@@ -28,6 +30,36 @@ class Account:
     def __len__(self):
         return len(self._transactions)
 
+    def __getitem__(self, index):
+        return self._transactions[index]
+
+    def __reversed__(self):
+        return reversed(self._transactions)
+
+    def __gt__(self, other):
+        return self.balance > other.balance
+
+    def __ge__(self, other):
+        return self.balance >= other.balance
+
+    def __lt__(self, other):
+        return self.balance < other.balance
+
+    def __le__(self, other):
+        return self.balance <= other.balance
+
+    def __eq__(self, other):
+        return self.balance == other.balance
+
+    def __ne__(self, other):
+        return self.balance != other.balance
+
+    def __add__(self, other):
+        acc = Account(f"{self.owner}&{other.owner}", self.amount + other.amount)
+        acc._transactions = self._transactions + other._transactions
+        return acc
+
+
 
 
 acc = Account('bob', 10)
@@ -39,8 +71,8 @@ acc.add_transaction(-20)
 acc.add_transaction(30)
 print(acc.balance)
 print(len(acc))
-# for transaction in acc:
-#     print(transaction)
+for transaction in acc:
+    print(transaction)
 # print(acc[1])
 # print(list(reversed(acc)))
 # acc2.add_transaction(10)
