@@ -20,11 +20,11 @@ class Group:
         self.people = people
 
     def __add__(self, other):
-        new_list = self.people.extend(other.people)
+        new_list = self.people + other.people
         return Group(self.name, new_list)
 
     def __getitem__(self, item):
-        return self.people[item]
+        return f"Person {item}: {self.people[item]}"
 
     def __len__(self):
         return len(self.people)
