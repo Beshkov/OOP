@@ -44,3 +44,51 @@ On that Note: you can also give a method and it will store attribute.
 TO PREVENT THE ERROR: you can give an third argument what getattr() to return if the second argument is not 
 found withing the object. / for ref line 25/
 '''
+
+print(hasattr(pesho, 'city'))
+'''
+hasattr() method check if the object have attribute or method with the given name and return True/False 
+'''
+
+print(setattr(pesho, 'city', 'Plovdiv'))
+print(setattr(pesho, 'citie', 'Plovdiv'))  # return None
+print(pesho.__dict__)
+# print(dir(pesho))
+print(setattr(circle, 'diameter', (2 * circle.radius)))
+print(circle.__dict__)
+# print(dir(circle))
+'''
+setattr() method sets the attribute to a new value / pesho.city = 'Plovdiv'
+When attribute that does not exist is given the the setattr() method it returns None. 
+!HOWEVER it does create a new attribute of the instance.
+setattr() only sets attributes. 
+'''
+"""A way to get only the methods from our classes without the dunders and the attributes is: """
+
+print([attribute for attribute in dir(circle) if callable(getattr(circle, attribute)) and attribute.startswith('__') is False])
+
+"""
+We need to make one more filter to differentiate between a method and a property.
+
+But this is really simple. The main difference is that any property object is NOT callable, while methods can be called!
+
+In Python, we can use the boolean function callable(attribute) to check if the attribute can be called.
+
+method_list = [attribute for attribute in dir(MyClass) if callable(getattr(MyClass, attribute)) and attribute.startswith('__') is False]
+print(method_list)
+
+method_list = []
+ 
+# attribute is a string representing the attribute name
+for attribute in dir(MyClass):
+    # Get the attribute value
+    attribute_value = getattr(MyClass, attribute)
+    # Check that it is callable
+    if callable(attribute_value):
+        # Filter all dunder (__ prefix) methods
+        if attribute.startswith('__') == False:
+            method_list.append(attribute)
+ 
+print(method_list)
+source : https://www.askpython.com/python/examples/find-all-methods-of-class
+"""
