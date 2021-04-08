@@ -33,6 +33,8 @@ print(getattr(circle, 'radius', 'there is no radius'))
 print(getattr(circle, 'radius') if hasattr(circle, 'radius') else None)
 print(getattr(circle, 'diameter', 'there is no diameter'))
 print(getattr(circle, 'diameter') if hasattr(circle, 'diameter') else None)
+print(getattr(Circle, 'area'))  # <function Circle.area at 0x0000025B0FBFBC10>
+print(getattr(circle, 'area'))  # <bound method Circle.area of <__main__.Circle object at 0x0000025B0FC0A340>>
 
 '''
 point of using getattr() method is so if you do not know the given attribute "name" 
@@ -43,6 +45,8 @@ On that Note: you can also give a method and it will store attribute.
 !IMPORTANT: if attribute that does not exist in the object is given it is risen "AttributeError" / check line 24 /
 TO PREVENT THE ERROR: you can give an third argument what getattr() to return if the second argument is not 
 found withing the object. / for ref line 25/
+getattr() can check if function in the class exist. 
+it can do the same for instance 
 '''
 
 print(hasattr(pesho, 'city'))
@@ -54,18 +58,23 @@ print(setattr(pesho, 'city', 'Plovdiv'))
 print(setattr(pesho, 'citie', 'Plovdiv'))  # return None
 print(pesho.__dict__)
 # print(dir(pesho))
+setattr(pesho, 'print_name', lambda: print(pesho.name))
+pesho.print_name()
+print(pesho.__dict__)
 print(setattr(circle, 'diameter', (2 * circle.radius)))
 print(circle.__dict__)
 # print(dir(circle))
 '''
 setattr() method sets the attribute to a new value / pesho.city = 'Plovdiv'
+you can also set instance attribute with a lambda function / not ideal but useful /
 When attribute that does not exist is given the the setattr() method it returns None. 
 !HOWEVER it does create a new attribute of the instance.
 setattr() only sets attributes. 
 '''
 """A way to get only the methods from our classes without the dunders and the attributes is: """
 
-print([attribute for attribute in dir(circle) if callable(getattr(circle, attribute)) and attribute.startswith('__') is False])
+print([attribute for attribute in dir(circle) if
+       callable(getattr(circle, attribute)) and attribute.startswith('__') is False])  # ['area']
 
 """
 We need to make one more filter to differentiate between a method and a property.
@@ -91,4 +100,12 @@ for attribute in dir(MyClass):
  
 print(method_list)
 source : https://www.askpython.com/python/examples/find-all-methods-of-class
+"""
+delattr(pesho, 'citie')
+"""
+delattr() method delete the method if it exist. If not raise error.
+Source: buildsin
+    Deletes the named attribute from the given object.
+    
+    delattr(x, 'y') is equivalent to ''del x.y''
 """
