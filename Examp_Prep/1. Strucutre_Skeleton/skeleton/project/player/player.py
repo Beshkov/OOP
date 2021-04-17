@@ -30,7 +30,7 @@ class Player(ABC):
 
     @health.setter
     def health(self, value):
-        if not value:
+        if value < 0:
             raise ValueError("Player's health bonus cannot be less than zero. ")
         self.__health = value
 
